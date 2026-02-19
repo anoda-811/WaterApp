@@ -34,7 +34,7 @@ export default function WaterPage() {
 
 
     return (
-        <main className="flex min-h-screen items-center justify-center bg-blue-50">
+        <main className="flex min-h-screen flex-col items-center justify-center gap-6 bg-blue-50 px-4">
         <div className="flex flex-col items-center gap-6">
 
             <h1 className="text-3xl font-bold text-blue-600">
@@ -84,7 +84,7 @@ export default function WaterPage() {
             </div>
 
             {/* ボタン */}
-            <div className="flex gap-4">
+            <div className="flex flex-wrap justify-center gap-3">
                 <button
                     onClick={() => setAmount(Math.max(amount - 500, 0))}
                     className="rounded-lg bg-red-400 px-4 py-2 text-white hover:bg-red-600 transition"
