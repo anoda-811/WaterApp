@@ -34,7 +34,7 @@ export default function WaterPage() {
 
 
     return (
-        <main className="flex min-h-screen flex-col items-center justify-center gap-6 bg-blue-50 px-4">
+        <main className="flex min-h-[100svh] flex-col items-center justify-center gap-6 bg-blue-50 px-4">
         <div className="flex flex-col items-center gap-6">
 
             <h1 className="text-3xl font-bold text-blue-600">
