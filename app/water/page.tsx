@@ -34,7 +34,7 @@ export default function WaterPage() {
 
 
     return (
-        <main className="flex min-h-screen items-center justify-center bg-blue-50">
+        <main className="flex min-h-screen flex-col items-center justify-center gap-6 bg-blue-50 px-4">
         <div className="flex flex-col items-center gap-6">
 
             <h1 className="text-3xl font-bold text-blue-600">
@@ -63,12 +63,15 @@ export default function WaterPage() {
             {/* 目標量 */}
             <div className="flex items-center gap-2">
             <span className="text-m text-blue-600">目標量:</span>
-            <input
-                type="number"
-                value={goalInput}
-                onChange={(e) => setGoalInput(e.target.value)}
-                className="w-24 rounded border px-2 py-1 text-center text-blue-600"
-            />
+            <div className="flex items-center gap-1">
+                <input
+                    type="number"
+                    value={goalInput}
+                    onChange={(e) => setGoalInput(e.target.value)}
+                    className="w-24 rounded border px-2 py-1 text-center text-blue-600"
+                />
+                <span className="text-sm text-blue-600">ml</span>
+            </div>
             <button
                 onClick={() => {
                 const newGoal = Number(goalInput);
@@ -84,7 +87,7 @@ export default function WaterPage() {
             </div>
 
             {/* ボタン */}
-            <div className="flex gap-4">
+            <div className="flex flex-wrap justify-center gap-3">
                 <button
                     onClick={() => setAmount(Math.max(amount - 500, 0))}
                     className="rounded-lg bg-red-400 px-4 py-2 text-white hover:bg-red-600 transition"
