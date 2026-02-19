@@ -109,7 +109,7 @@ export default function WaterPage() {
 
                 <button
                     onClick={() => setAmount(Math.min(amount + 500, goal))}
-                    className="rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-500 transition"
+                    className="rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 transition"
                 >
                     +500ml
                 </button>
