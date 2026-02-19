@@ -63,12 +63,15 @@ export default function WaterPage() {
             {/* 目標量 */}
             <div className="flex items-center gap-2">
             <span className="text-m text-blue-600">目標量:</span>
-            <input
-                type="number"
-                value={goalInput}
-                onChange={(e) => setGoalInput(e.target.value)}
-                className="w-24 rounded border px-2 py-1 text-center text-blue-600"
-            />
+            <div className="flex items-center gap-1">
+                <input
+                    type="number"
+                    value={goalInput}
+                    onChange={(e) => setGoalInput(e.target.value)}
+                    className="w-24 rounded border px-2 py-1 text-center text-blue-600"
+                />
+                <span className="text-sm text-blue-600">ml</span>
+            </div>
             <button
                 onClick={() => {
                 const newGoal = Number(goalInput);
