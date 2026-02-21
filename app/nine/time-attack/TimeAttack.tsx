@@ -16,6 +16,7 @@ export default function TimeAttack({ seconds }: { seconds: number }) {
     const [timeLeft, setTimeLeft] = useState(seconds * 1000);
     const correctAnswer = left * right;
 
+    // 問題作成
     const generateQuestion = () => {
         setLeft(Math.floor(Math.random() * 9) + 1);
         setRight(Math.floor(Math.random() * 9) + 1);
@@ -88,10 +89,6 @@ export default function TimeAttack({ seconds }: { seconds: number }) {
 
         return () => clearTimeout(timer);
     }, [phase, timeLeft]);
-
-    useEffect(() => {
-        setTimeLeft(seconds * 1000);
-    }, [seconds]);
 
     // 🔥 フラッシュ画面
     if (phase === "flash") {
