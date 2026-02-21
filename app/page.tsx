@@ -8,7 +8,7 @@ export default function Home() {
       <h1 className="text-4xl font-bold">🏠 {name}</h1>
 
       <Link href="/water" className="rounded-lg bg-blue-500 px-6 py-3 text-white hover:bg-blue-600 transition">
-        💧 Water Appへ
+        💧 Water Tracker
       </Link>
     </main>
   );
