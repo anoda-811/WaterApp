@@ -17,6 +17,7 @@ export default function TimeAttack({ seconds }: { seconds: number }) {
     const correctAnswer = left * right;
     const [highScore, setHighScore] = useState(0);
     const key = `nine-highscore-${seconds}`;
+    const [isNewRecord, setIsNewRecord] = useState(false);
 
     // 問題作成
     const generateQuestion = () => {
@@ -84,6 +85,7 @@ export default function TimeAttack({ seconds }: { seconds: number }) {
             if (score > highScore) {
                 localStorage.setItem(`nine-highscore-${seconds}`, String(score));
                 setHighScore(score);
+                setIsNewRecord(true);
             }
             setPhase("result");
             return;
@@ -122,6 +124,11 @@ export default function TimeAttack({ seconds }: { seconds: number }) {
     if (phase === "result") {
         return (
         <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center">
+            {isNewRecord && (
+                <p className="mb-4 text-xl font-bold text-white animate-bounce">
+                🔥 NEW RECORD 🔥
+                </p>
+            )}
             <div className="border-2 border-white p-10 text-center w-80 hover:shadow-[0_0_10px_white]">
             <h2 className="text-3xl mb-6">結果</h2>
 
