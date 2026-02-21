@@ -71,7 +71,7 @@ export default function WaterPage() {
                 {/* タイトル＋水量 */}
                 <div className="text-center space-y-2">
                     <h1 className="text-3xl font-bold text-blue-600">
-                    💧 Water Tracker
+                    💧 Water Trackerああああ
                     </h1>
                     <p className="text-lg text-blue-600 font-semibold">
                         現在の水量: {amount} / {goal} ml
