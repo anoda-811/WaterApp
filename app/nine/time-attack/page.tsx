@@ -11,11 +11,8 @@ export default function TimeAttack({
 }) {
     const router = useRouter();
     const inputRef = useRef<HTMLInputElement>(null);
-    const total = Number(searchParams?.count ?? 10);
     const [phase, setPhase] = useState<"flash" | "countdown" | "playing" | "result">("flash");
     const [countdown, setCountdown] = useState(3);
-
-    const [current, setCurrent] = useState(1);
     const [left, setLeft] = useState(1);
     const [right, setRight] = useState(1);
     const [input, setInput] = useState("");
