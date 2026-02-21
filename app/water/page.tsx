@@ -4,33 +4,45 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 
 export default function WaterPage() {
-    const [amount, setAmount] = useState(0);
-    const [goal, setGoal] = useState(2000);
-    const [goalInput, setGoalInput] = useState("2000");
+    const [amount, setAmount] = useState(() => {
+    if (typeof window !== "undefined") {
+        const saved = localStorage.getItem("water-amount");
+        return saved ? Number(saved) : 0;
+    }
+    return 0;
+    });
+    const [goal, setGoal] = useState(() => {
+        if (typeof window !== "undefined") {
+            const saved = localStorage.getItem("water-goal");
+            return saved ? Number(saved) : 2000;
+        }
+        return 0;
+    });
+    const [goalInput, setGoalInput] = useState(String(goal));
     const percentage = goal > 0 ? (amount / goal) * 100 : 0;
+    const isFull = amount >= goal;
+    const [mounted, setMounted] = useState(false);
 
     // 初回読み込み
     useEffect(() => {
-    const savedAmount = localStorage.getItem("water-amount");
-    const savedGoal = localStorage.getItem("water-goal");
-    if (savedAmount !== null) {
-        setAmount(Number(savedAmount));
-    }
-    if (savedGoal !== null) {
-        const goalNumber = Number(savedGoal);
-        setGoal(goalNumber);
-        setGoalInput(savedGoal);
-    }
+        const savedAmount = localStorage.getItem("water-amount");
+        if (savedAmount != null) {
+            // 少し遅らせてセット
+            setTimeout(() => {
+            setAmount(Number(savedAmount));
+            }, 50);
+        }
+        setMounted(true);
     }, []);
 
     // amount更新
     useEffect(() => {
-    localStorage.setItem("water-amount", String(amount));
+        localStorage.setItem("water-amount", String(amount));
     }, [amount]);
 
     // goal更新
     useEffect(() => {
-    localStorage.setItem("water-goal", String(goal));
+        localStorage.setItem("water-goal", String(goal));
     }, [goal]);
 
 
@@ -55,23 +67,45 @@ export default function WaterPage() {
                     💧 Water Tracker
                     </h1>
 
+                    {mounted && (
                     <p className="text-lg text-blue-600 font-semibold">
-                    現在の水量: {amount} / {goal} ml
+                        現在の水量: {amount} / {goal} ml
                     </p>
+                    )}
                 </div>
 
                 {/* コンテンツ */}
                 <div className="flex flex-col items-center justify-center gap-6">
+
                     {/* ボトル全体 */}
                     <div className="relative flex flex-col items-center">
                         {/* キャップ */}
-                        <div className="relative z-10 mb-[-12px] h-8 w-16 rounded-md bg-blue-400" />
+                        <div
+                            className={`relative z-10 mb-[-12px] h-8 w-16 rounded-md transition-all duration-500 ${
+                            isFull ? "bg-purple-500 shadow-purple-400 shadow-lg" : "bg-blue-400"
+                            }`}
+                        />
                         {/* ボトル */}
-                        <div className="relative h-[43vh] md:h-[60vh] w-[40vw] max-w-[220px] min-w-[140px] rounded-3xl border-4 border-blue-400 bg-white shadow-lg overflow-hidden">
+                        <div
+                            className={`relative h-[43vh] md:h-[60vh] w-[40vw] max-w-[220px] min-w-[140px] rounded-3xl border-4 bg-white overflow-hidden transition-all duration-500 ${
+                            isFull
+                                ? "border-purple-500 shadow-2xl shadow-purple-400/60"
+                                : "border-blue-400 shadow-lg"
+                            }`}
+                        >
                             {/* 水 */}
-                            <div className="absolute bottom-0 w-full transition-all duration-500 bg-gradient-to-t from-blue-500 via-blue-400 to-blue-300" style={{ height: `${percentage}%` }}>
-                                {/* ハイライト */}
-                                <div className="absolute top-2 left-1/2 h-2 w-2/3 -translate-x-1/2 rounded-full bg-white/40 blur-sm" />
+                            <div
+                            className={`absolute bottom-0 w-full transition-all duration-700 ${
+                                isFull
+                                ? "bg-gradient-to-t from-purple-600 via-purple-500 to-purple-400"
+                                : "bg-gradient-to-t from-blue-500 via-blue-400 to-blue-300"
+                            }`}
+                            style={{
+                                height: mounted ? `${percentage}%` : "0%"
+                            }}
+                            >
+                            {/* ハイライト */}
+                            <div className="absolute top-2 left-1/2 h-2 w-2/3 -translate-x-1/2 rounded-full bg-white/40 blur-sm" />
                             </div>
                         </div>
                     </div>
