@@ -109,7 +109,7 @@ export default function WaterPage() {
                         />
                         {/* ボトル */}
                         <div
-                            className={`relative h-[43vh] md:h-[60vh] w-[40vw] max-w-[220px] min-w-[140px] rounded-3xl border-4 bg-white overflow-hidden transition-all duration-500 ${
+                            className={`relative h-[43vh] md:h-[50vh] w-[40vw] max-w-[220px] min-w-[140px] rounded-3xl border-4 bg-white overflow-hidden transition-all duration-500 ${
                             isFull
                                 ? "border-purple-500 shadow-2xl shadow-purple-400/60"
                                 : "border-blue-400 shadow-lg"
