@@ -15,6 +15,8 @@ export default function TimeAttack({ seconds }: { seconds: number }) {
     const [score, setScore] = useState(0);
     const [timeLeft, setTimeLeft] = useState(seconds * 1000);
     const correctAnswer = left * right;
+    const [highScore, setHighScore] = useState(0);
+    const key = `nine-highscore-${seconds}`;
 
     // 問題作成
     const generateQuestion = () => {
@@ -79,6 +81,10 @@ export default function TimeAttack({ seconds }: { seconds: number }) {
         if (phase !== "playing") return;
 
         if (timeLeft <= 0) {
+            if (score > highScore) {
+                localStorage.setItem(`nine-highscore-${seconds}`, String(score));
+                setHighScore(score);
+            }
             setPhase("result");
             return;
         }
@@ -89,6 +95,14 @@ export default function TimeAttack({ seconds }: { seconds: number }) {
 
         return () => clearTimeout(timer);
     }, [phase, timeLeft]);
+
+    // 初期読み込み
+    useEffect(() => {
+        const saved = localStorage.getItem(`nine-highscore-${seconds}`);
+        if (saved) {
+            setHighScore(Number(saved));
+        }
+    }, [seconds]);
 
     // 🔥 フラッシュ画面
     if (phase === "flash") {
@@ -108,11 +122,14 @@ export default function TimeAttack({ seconds }: { seconds: number }) {
     if (phase === "result") {
         return (
         <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center">
-            <div className="border-2 border-white p-10 text-center w-80">
+            <div className="border-2 border-white p-10 text-center w-80 hover:shadow-[0_0_10px_white]">
             <h2 className="text-3xl mb-6">結果</h2>
 
             <p className="text-xl tracking-wider">
                 正解数: {score}
+            </p>
+            <p className="text- tracking-wider mt-5">
+                ハイスコア: {highScore}
             </p>
             </div>
             <div className="mt-8 flex flex-col items-center">

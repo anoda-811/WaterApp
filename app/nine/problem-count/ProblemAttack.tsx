@@ -97,7 +97,7 @@ export default function ProblemAttack({ total }: { total: number }) {
     if (phase === "result") {
         return (
         <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center">
-            <div className="border-2 border-white p-10 text-center w-80">
+            <div className="border-2 border-white p-10 text-center w-80 hover:shadow-[0_0_10px_white]">
             <h2 className="text-3xl mb-6">結果</h2>
 
             <p className="text-xl tracking-wider">
