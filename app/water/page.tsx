@@ -4,46 +4,38 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 
 export default function WaterPage() {
-    const [amount, setAmount] = useState(() => {
-    if (typeof window !== "undefined") {
-        const saved = localStorage.getItem("water-amount");
-        return saved ? Number(saved) : 0;
-    }
-    return 0;
-    });
-    const [goal, setGoal] = useState(() => {
-        if (typeof window !== "undefined") {
-            const saved = localStorage.getItem("water-goal");
-            return saved ? Number(saved) : 2000;
-        }
-        return 0;
-    });
-    const [goalInput, setGoalInput] = useState(String(goal));
-    const percentage = goal > 0 ? (amount / goal) * 100 : 0;
-    const isFull = amount >= goal;
     const [mounted, setMounted] = useState(false);
+    const [amount, setAmount] = useState(0);
+    const [goal, setGoal] = useState(2000);
+    const [goalInput, setGoalInput] = useState(2000);
+    const percentage = goal > 0 ? (amount / goal) * 100 : 0;
+    const isFull = mounted && goal > 0 && amount >= goal;
 
     // 初回読み込み
     useEffect(() => {
-        const savedAmount = localStorage.getItem("water-amount");
-        if (savedAmount != null) {
-            // 少し遅らせてセット
-            setTimeout(() => {
-            setAmount(Number(savedAmount));
-            }, 50);
-        }
-        setMounted(true);
+    const savedAmount = localStorage.getItem("water-amount");
+    const savedGoal = localStorage.getItem("water-goal");
+
+    if (savedAmount) setAmount(Number(savedAmount));
+    if (savedGoal !== null) {
+        const goalNumber = Number(savedGoal);
+        setGoal(goalNumber);
+        setGoalInput(savedGoal);
+    }
+    setMounted(true);
     }, []);
 
     // amount更新
     useEffect(() => {
-        localStorage.setItem("water-amount", String(amount));
-    }, [amount]);
+    if (!mounted) return;
+    localStorage.setItem("water-amount", String(amount));
+    }, [amount, mounted]);
 
-    // goal更新
+    // gaol更新
     useEffect(() => {
-        localStorage.setItem("water-goal", String(goal));
-    }, [goal]);
+    if (!mounted) return;
+    localStorage.setItem("water-goal", String(goal));
+    }, [goal, mounted]);
 
 
     return (
@@ -66,12 +58,9 @@ export default function WaterPage() {
                     <h1 className="text-3xl font-bold text-blue-600">
                     💧 Water Tracker
                     </h1>
-
-                    {mounted && (
                     <p className="text-lg text-blue-600 font-semibold">
                         現在の水量: {amount} / {goal} ml
                     </p>
-                    )}
                 </div>
 
                 {/* コンテンツ */}
