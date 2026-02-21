@@ -7,8 +7,34 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-center gap-6">
       <h1 className="text-4xl font-bold">🏠 {name}</h1>
 
-      <Link href="/water" className="rounded-lg bg-blue-500 px-6 py-3 text-white hover:bg-blue-600 transition">
+      <Link href="/water" className="            px-8 py-3
+            bg-black text-white
+            rounded-xl
+            mt-8 text-lg tracking-widest
+            transition
+            hover:shadow-[0_0_12px_white]
+            hover:bg-white
+            hover:text-black
+            transition-all duration-200
+            active:shadow-[0_0_20px_white]
+            active:bg-white
+            active:text-black">
         💧 Water Tracker
+      </Link>
+
+      <Link href="/nine" className="            px-8 py-3
+            bg-black text-white
+            rounded-xl
+            mt-8 text-lg tracking-widest
+            transition
+            hover:shadow-[0_0_12px_white]
+            hover:bg-white
+            hover:text-black
+            transition-all duration-200
+            active:shadow-[0_0_20px_white]
+            active:bg-white
+            active:text-black">
+        🏠 九九道場
       </Link>
     </main>
   );
