@@ -37,7 +37,7 @@ export default function WaterPage() {
     return (
         <main className="flex min-h-[100svh] flex-col bg-blue-50 px-4">
             {/* ヘッダー */}
-            <div className="flex items-center py-4">
+            <div className="flex items-center py-2 md:py-4">
                 <Link
                 href="/"
                 className="rounded-full bg-blue-500 text-white px-4 py-2 text-sm shadow-md"
@@ -67,7 +67,7 @@ export default function WaterPage() {
                         {/* キャップ */}
                         <div className="relative z-10 mb-[-12px] h-8 w-16 rounded-md bg-blue-400" />
                         {/* ボトル */}
-                        <div className="relative h-96 w-40 rounded-3xl border-4 border-blue-400 bg-white shadow-lg overflow-hidden">
+                        <div className="relative h-[43vh] md:h-[60vh] w-[40vw] max-w-[220px] min-w-[140px] rounded-3xl border-4 border-blue-400 bg-white shadow-lg overflow-hidden">
                             {/* 水 */}
                             <div className="absolute bottom-0 w-full transition-all duration-500 bg-gradient-to-t from-blue-500 via-blue-400 to-blue-300" style={{ height: `${percentage}%` }}>
                                 {/* ハイライト */}
