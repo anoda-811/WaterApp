@@ -3,12 +3,11 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
+import { useSearchParams } from "next/navigation";
 
-export default function TimeAttack({
-  searchParams,
-}: {
-  searchParams: { seconds?: string };
-}) {
+export default function TimeAttack(){
+    const searchParams = useSearchParams();
+    const seconds = Number(searchParams.get("seconds") ?? 60);
     const router = useRouter();
     const inputRef = useRef<HTMLInputElement>(null);
     const [phase, setPhase] = useState<"flash" | "countdown" | "playing" | "result">("flash");
@@ -17,7 +16,6 @@ export default function TimeAttack({
     const [right, setRight] = useState(1);
     const [input, setInput] = useState("");
     const [score, setScore] = useState(0);
-    const seconds = Number(searchParams?.seconds ?? 60);
     const [timeLeft, setTimeLeft] = useState(seconds * 1000);
     const correctAnswer = left * right;
 
@@ -53,7 +51,7 @@ export default function TimeAttack({
     setCountdown(3);
     setScore(0);
     setInput("");
-    setTimeLeft(seconds);
+    setTimeLeft(seconds * 1000);
     };
 
     // 演出制御
@@ -93,6 +91,10 @@ export default function TimeAttack({
 
         return () => clearTimeout(timer);
     }, [phase, timeLeft]);
+
+    useEffect(() => {
+        setTimeLeft(seconds * 1000);
+    }, [seconds]);
 
     // 🔥 フラッシュ画面
     if (phase === "flash") {
@@ -168,7 +170,11 @@ export default function TimeAttack({
     // 🔥 通常問題画面
     return (
         <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center">
-            <p className="mb-4 text-2xl tracking-widest">
+            <p
+                className={`mb-4 text-2xl tracking-widest ${
+                    timeLeft <= 10000 ? "text-red-500" : "text-white"
+                }`}
+            >
               {(timeLeft / 1000).toFixed(2)}
             </p>
         <div className="border-2 border-white p-8 w-80 text-center">
@@ -205,3 +211,6 @@ export default function TimeAttack({
         </div>
     );
 }
+
+// 保管庫
+// ${timeLeft <= 5000 ? "animate-pulse" : ""}
