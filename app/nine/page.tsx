@@ -36,19 +36,23 @@ export default function Home() {
         {/* ヘッダー */}
             <div className="flex items-left py-2 md:py-4">
                 <Link
+                onClick={() => {
+                    playSound("submit");
+                }}
                 href="/"
-                className="            px-8 py-3
-            bg-black text-white
-            rounded-xl
-            mt-8 text-lg tracking-widest
-            transition
-            hover:shadow-[0_0_12px_white]
-            hover:bg-white
-            hover:text-black
-            transition-all duration-200
-            active:shadow-[0_0_20px_white]
-            active:bg-white
-            active:text-black"
+                className="
+                px-8 py-3
+                bg-black text-white
+                rounded-xl
+                mt-8 text-lg tracking-widest
+                transition
+                hover:shadow-[0_0_12px_white]
+                hover:bg-white
+                hover:text-black
+                transition-all duration-200
+                active:shadow-[0_0_20px_white]
+                active:bg-white
+                active:text-black"
                 >
                 ← Home
                 </Link>
