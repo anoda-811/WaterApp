@@ -105,7 +105,7 @@ export default function Home() {
             px-8 py-3
             bg-black text-white
             rounded-xl
-            mt-8 text-lg tracking-widest
+            mt-3 text-lg tracking-widest
             transition
             hover:shadow-[0_0_12px_white]
             hover:bg-white

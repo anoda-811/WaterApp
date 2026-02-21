@@ -74,6 +74,14 @@ export default function ProblemCount({
     }
   };
 
+  const retry = () => {
+    setPhase("flash");
+    setCountdown(3);
+    setCurrent(1);
+    setScore(0);
+    setInput("");
+  };
+
   // 🔥 フラッシュ画面
   if (phase === "flash") {
     return <div className="fixed inset-0 bg-white"></div>;
@@ -99,25 +107,48 @@ export default function ProblemCount({
             正解数: {score} / {total}
           </p>
         </div>
-        <button
-            onClick={() => router.push("/nine")}
+        <div className="mt-8 flex flex-col items-center">
+          <button
+            onClick={retry}
             className="
-            px-8 py-3
-            bg-black text-white
-            rounded-xl
-            mt-8 text-lg tracking-widest
-            transition
-            hover:shadow-[0_0_12px_white]
-            hover:bg-white
-            hover:text-black
-            transition-all duration-200
-            active:shadow-[0_0_20px_white]
-            active:bg-white
-            active:text-black
-            "
+              px-8 py-3
+              text-left w-48
+              bg-black text-white
+              rounded-xl
+              mt-8 text-lg tracking-widest
+              transition
+              hover:shadow-[0_0_12px_white]
+              hover:bg-white
+              hover:text-black
+              transition-all duration-200
+              active:shadow-[0_0_20px_white]
+              active:bg-white
+              active:text-black
+              "
           >
-            ▶ タイトルへ
+            ▶ リトライ
           </button>
+          <button
+              onClick={() => router.push("/nine")}
+              className="
+                px-8 py-3
+                text-left w-48
+                bg-black text-white
+                rounded-xl
+                mt-8 text-lg tracking-widest
+                transition
+                hover:shadow-[0_0_12px_white]
+                hover:bg-white
+                hover:text-black
+                transition-all duration-200
+                active:shadow-[0_0_20px_white]
+                active:bg-white
+                active:text-black
+                "
+            >
+              ▶ タイトルへ
+            </button>
+          </div>
       </div>
     );
   }
