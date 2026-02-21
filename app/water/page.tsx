@@ -41,7 +41,7 @@ export default function WaterPage() {
             {/* 左上ホームボタン */}
             <Link
                 href="/"
-                className="absolute left-4 top-4 rounded-full bg-blue-500 text-white px-4 py-2 text-sm shadow-md hover:bg-blue-600 transition"
+                className="rounded-full bg-blue-500 text-white px-4 py-2 text-sm shadow-md hover:bg-blue-600 transition"
             >
                 ← Home
             </Link>
