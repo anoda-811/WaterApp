@@ -52,7 +52,7 @@ export default function WaterPage() {
     localStorage.setItem("water-goal", String(goal));
     }, [goal, mounted]);
 
-
+    if (!mounted) return null;
     return (
         <main className="flex min-h-[100svh] flex-col bg-blue-50 px-4">
             {/* ヘッダー */}
