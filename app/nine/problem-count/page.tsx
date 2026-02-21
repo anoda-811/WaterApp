@@ -1,16 +1,13 @@
-"use client";
-
-export const dynamic = "force-dynamic";
-
-import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-export default function ProblemCount() {
+export default function ProblemCount({
+  searchParams,
+}: {
+  searchParams: { count?: string };
+}) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const total = Number(searchParams.get("count")) || 10;
-
+  const total = Number(searchParams?.count ?? 10);
   const [phase, setPhase] = useState<"flash" | "countdown" | "playing" | "result">("flash");
   const [countdown, setCountdown] = useState(3);
 
