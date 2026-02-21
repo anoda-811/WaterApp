@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useRef } from "react";
 
 export default function ProblemCount({
   searchParams,
@@ -9,6 +10,7 @@ export default function ProblemCount({
   searchParams: { count?: string };
 }) {
   const router = useRouter();
+  const inputRef = useRef<HTMLInputElement>(null);
   const total = Number(searchParams?.count ?? 10);
   const [phase, setPhase] = useState<"flash" | "countdown" | "playing" | "result">("flash");
   const [countdown, setCountdown] = useState(3);
@@ -124,6 +126,7 @@ export default function ProblemCount({
         </div>
 
         <input
+          ref={inputRef}
           type="tel"
           inputMode="numeric"
           pattern="[0-9]*"
