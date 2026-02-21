@@ -10,14 +10,20 @@ export default function Battle() {
     const maxPlayerHp = 100
     const maxEnemyHp = 80
     const [phase, setPhase] = useState<
-    "player" | "enemy" | "message" | "win" | "lose"
-    >("player")
+    "intro" | "start" | "player" | "enemy" | "message" | "win" | "lose"
+    >("intro")
     const [selected, setSelected] = useState(0)
     const commands = ["たたかう", "スキル", "ぼうぎょ"]
+    const playSound = (src: string) => {
+        const audio = new Audio(src)
+        audio.volume = 0.6
+        audio.play()
+    }
 
     const attack = () => {
         if (phase !== "player") return
 
+        playSound("/sounds/氷魔法1.mp3")
         const damage = Math.floor(Math.random() * 10) + 5
         const newEnemyHp = Math.max(enemyHp - damage, 0)
 
@@ -89,6 +95,17 @@ export default function Battle() {
         }
     }, [])
 
+    // 敵出現
+    useEffect(() => {
+    if (phase === "start") {
+        playSound("/sounds/怪獣の足音.mp3")
+
+        setTimeout(() => {
+        setPhase("player")
+        }, 1000)
+    }
+    }, [phase])
+
     // 敵の攻撃
     useEffect(() => {
     if (phase === "enemy") {
@@ -148,7 +165,7 @@ export default function Battle() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(64, 6px)",
+          gridTemplateColumns: "repeat(64, 4.5px)",
         }}
       >
         {pixels.map((row, y) =>
@@ -156,8 +173,8 @@ export default function Battle() {
             <div
               key={`${x}-${y}`}
               style={{
-                width: 6,
-                height: 6,
+                width: 4.5,
+                height: 4.5,
                 backgroundColor: color,
               }}
             />
@@ -170,6 +187,28 @@ export default function Battle() {
 
     <div className="border border-white p-6 w-80">
     <p className="mb-4">{message}</p>
+
+    {phase === "intro" && (
+        <button
+            onClick={() => {
+            playSound("/sounds/怪獣の足音.mp3")
+            setPhase("start")
+            }}
+            className="
+            border border-white px-6 py-2
+            bg-black text-white
+            transition
+            hover:shadow-[0_0_12px_white]
+            hover:bg-white
+            hover:text-black
+            transition-all duration-200
+            active:shadow-[0_0_20px_white]
+            active:bg-white
+            active:text-black"
+        >
+            ▶ バトル開始
+        </button>
+    )}
 
     {phase === "player" && (
         <div className="flex flex-col gap-2">
