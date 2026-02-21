@@ -9,7 +9,7 @@ export default function WaterPage() {
     const [goal, setGoal] = useState(2000);
     const [goalInput, setGoalInput] = useState(2000);
     const percentage = goal > 0 ? (amount / goal) * 100 : 0;
-    const isFull = mounted && goal > 0 && amount >= goal;
+    const isFull = mounted && goal > 0 && amount === goal;
 
     // 初回読み込み
     useEffect(() => {
