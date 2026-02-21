@@ -79,7 +79,7 @@ export default function Home() {
         <div className="border-2 border-white rounded-2xl p-6 mb-8 w-80 text-center hover:shadow-[0_0_10px_white] transition">
             <h2 className="mb-4 font-semibold text-white">⏱ 秒数アタック</h2>
             <div className="flex justify-center gap-4">
-            {[30,60,120].map((sec) => (
+            {[10,30,60].map((sec) => (
                 <button
                 key={sec}
                 onClick={() => {
