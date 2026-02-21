@@ -27,6 +27,13 @@ export default function ProblemCount({
     setRight(Math.floor(Math.random() * 9) + 1);
   };
 
+  // サウンド
+  const playSound = (type: "correct" | "wrong") => {
+    const sound = new Audio(`/sounds/${type}.mp3`);
+    sound.volume = 0.5; // 音量調整
+    sound.play();
+  };
+
   // 演出制御
   useEffect(() => {
     if (phase === "flash") {
@@ -51,9 +58,11 @@ export default function ProblemCount({
 
   const handleSubmit = (answer?: string) => {
     const finalAnswer = answer ?? input;
-
-    if (Number(finalAnswer) === left * right) {
+    if (Number(finalAnswer) === correctAnswer) {
       setScore((prev) => prev + 1);
+      playSound("correct");
+    } else {
+      playSound("wrong");
     }
 
     if (current < total) {
