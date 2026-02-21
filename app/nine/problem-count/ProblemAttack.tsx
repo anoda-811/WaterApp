@@ -23,7 +23,7 @@ export default function ProblemAttack({ total }: { total: number }) {
     };
 
     // サウンド
-    const playSound = (type: "correct" | "wrong") => {
+    const playSound = (type: "correct" | "wrong" | "submit") => {
         const sound = new Audio(`/sounds/${type}.mp3`);
         sound.volume = 0.5; // 音量調整
         sound.play();
@@ -106,7 +106,10 @@ export default function ProblemAttack({ total }: { total: number }) {
             </div>
             <div className="mt-8 flex flex-col items-center">
             <button
-                onClick={retry}
+                onClick={() => {
+                    retry();
+                    playSound("submit");
+                }}
                 className="
                 px-8 py-3
                 text-left w-48
@@ -126,7 +129,12 @@ export default function ProblemAttack({ total }: { total: number }) {
                 ▶ リトライ
             </button>
             <button
-                onClick={() => router.push("/nine")}
+                onClick={() => {
+                    playSound("submit");
+                    setTimeout(() => {
+                        router.push("/nine");
+                    }, 150); // 0.15秒
+                }}
                 className="
                     px-8 py-3
                     text-left w-48

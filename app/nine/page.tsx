@@ -24,6 +24,13 @@ export default function Home() {
         }
     };
 
+    // サウンド
+    const playSound = (type: "submit") => {
+        const sound = new Audio(`/sounds/${type}.mp3`);
+        sound.volume = 0.5; // 音量調整
+        sound.play();
+    };
+
   return (
     <main className="min-h-screen bg-black text-white flex flex-col items-center justify-center">
         {/* ヘッダー */}
@@ -99,7 +106,10 @@ export default function Home() {
         </div>
 
         <button
-            onClick={handleStart}
+            onClick={() => {
+                handleStart();
+                playSound("submit");
+            }}
             disabled={!mode}
             className="
             px-8 py-3
