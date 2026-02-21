@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function WaterPage() {
     const [amount, setAmount] = useState(0);
@@ -36,6 +37,14 @@ export default function WaterPage() {
     return (
         <main className="flex h-[100svh] flex-col items-center justify-center bg-blue-50 px-4 overflow-hidden">
         <div className="flex flex-col items-center gap-6">
+
+            {/* 左上ホームボタン */}
+            <Link
+                href="/"
+                className="absolute left-4 top-4 rounded-full bg-blue-500 text-white px-4 py-2 text-sm shadow-md hover:bg-blue-600 transition"
+            >
+                ← Home
+            </Link>
 
             <h1 className="text-3xl font-bold text-blue-600">
             💧 Water Tracker
