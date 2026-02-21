@@ -9,13 +9,7 @@ export default function WaterPage() {
     const [goal, setGoal] = useState(2000);
     const [goalInput, setGoalInput] = useState(2000);
     const percentage = goal > 0 ? (amount / goal) * 100 : 0;
-    const isFull = false;
-    console.log("mounted:", mounted);
-    console.log("amount:", amount);
-    console.log("goal:", goal);
-    console.log("amount >= goal:", amount >= goal);
-    console.log("amount === goal:", amount === goal);
-    console.log("isFull:", isFull);
+    const isFull = mounted && goal > 0 && amount === goal;
 
     // 初回読み込み
     useEffect(() => {
@@ -52,7 +46,7 @@ export default function WaterPage() {
     localStorage.setItem("water-goal", String(goal));
     }, [goal, mounted]);
 
-    if (!mounted) return null;
+
     return (
         <main className="flex min-h-[100svh] flex-col bg-blue-50 px-4">
             {/* ヘッダー */}
@@ -71,7 +65,7 @@ export default function WaterPage() {
                 {/* タイトル＋水量 */}
                 <div className="text-center space-y-2">
                     <h1 className="text-3xl font-bold text-blue-600">
-                    💧 Water Trackerああああ
+                    💧 Water Tracker
                     </h1>
                     <p className="text-lg text-blue-600 font-semibold">
                         現在の水量: {amount} / {goal} ml
