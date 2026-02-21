@@ -22,10 +22,11 @@ export default function Home() {
         💧 Water Tracker
       </Link>
 
-      <Link href="/nine" className="            px-8 py-3
+      <Link href="/nine" className="
+            px-8 py-3
             bg-black text-white
             rounded-xl
-            mt-8 text-lg tracking-widest
+            mt-4 text-lg tracking-widest
             transition
             hover:shadow-[0_0_12px_white]
             hover:bg-white
@@ -35,6 +36,23 @@ export default function Home() {
             active:bg-white
             active:text-black">
         🏠 九九道場
+      </Link>
+
+      
+      <Link href="/battle" className="
+            px-8 py-3
+            bg-black text-white
+            rounded-xl
+            mt-4 text-lg tracking-widest
+            transition
+            hover:shadow-[0_0_12px_white]
+            hover:bg-white
+            hover:text-black
+            transition-all duration-200
+            active:shadow-[0_0_20px_white]
+            active:bg-white
+        ⚔ck">
+        ⚔ バトル
       </Link>
     </main>
   );
