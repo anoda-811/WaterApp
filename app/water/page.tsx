@@ -10,18 +10,33 @@ export default function WaterPage() {
     const [goalInput, setGoalInput] = useState(2000);
     const percentage = goal > 0 ? (amount / goal) * 100 : 0;
     const isFull = mounted && goal > 0 && amount === goal;
+    console.log("mounted:", mounted);
+    console.log("amount:", amount);
+    console.log("goal:", goal);
+    console.log("amount >= goal:", amount >= goal);
+    console.log("amount === goal:", amount === goal);
+    console.log("isFull:", isFull);
 
     // 初回読み込み
     useEffect(() => {
     const savedAmount = localStorage.getItem("water-amount");
     const savedGoal = localStorage.getItem("water-goal");
 
-    if (savedAmount) setAmount(Number(savedAmount));
-    if (savedGoal !== null) {
-        const goalNumber = Number(savedGoal);
-        setGoal(goalNumber);
-        setGoalInput(savedGoal);
+    if (savedAmount !== null && savedAmount !== "") {
+        const parsedAmount = Number(savedAmount);
+        if (!isNaN(parsedAmount)) {
+        setAmount(parsedAmount);
+        }
     }
+
+    if (savedGoal !== null && savedGoal !== "") {
+        const parsedGoal = Number(savedGoal);
+        if (!isNaN(parsedGoal) && parsedGoal > 0) {
+        setGoal(parsedGoal);
+        setGoalInput(String(parsedGoal));
+        }
+    }
+
     setMounted(true);
     }, []);
 
