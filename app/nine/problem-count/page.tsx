@@ -18,6 +18,7 @@ export default function ProblemCount({
   const [right, setRight] = useState(1);
   const [input, setInput] = useState("");
   const [score, setScore] = useState(0);
+    const correctAnswer = left * right;
 
   const generateQuestion = () => {
     setLeft(Math.floor(Math.random() * 9) + 1);
@@ -46,8 +47,10 @@ export default function ProblemCount({
     }
   }, [phase, countdown]);
 
-  const handleSubmit = () => {
-    if (Number(input) === left * right) {
+  const handleSubmit = (answer?: string) => {
+    const finalAnswer = answer ?? input;
+
+    if (Number(finalAnswer) === left * right) {
       setScore((prev) => prev + 1);
     }
 
@@ -126,9 +129,21 @@ export default function ProblemCount({
           pattern="[0-9]*"
           autoFocus
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value;
+
+            if (/^\d*$/.test(value)) {
+              setInput(value);
+
+              if (value.length === String(correctAnswer).length) {
+                handleSubmit(value);
+              }
+            }
+          }}
           onKeyDown={(e) => {
-            if (e.key === "Enter") handleSubmit();
+            if (e.key === "Enter") {
+              handleSubmit(input);
+            }
           }}
           className="bg-black border-2 border-white text-white text-center p-2 w-24"
         />
