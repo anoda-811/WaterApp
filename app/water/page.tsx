@@ -11,6 +11,31 @@ export default function WaterPage() {
     const percentage = goal > 0 ? (amount / goal) * 100 : 0;
     const isFull = mounted && goal > 0 && amount === goal;
 
+    // サウンド
+    const playSound = (type: "addSmall" | "addLarge") => {
+        const sound = sounds[type];
+
+        let audio: HTMLAudioElement;
+
+        if (Array.isArray(sound)) {
+            const randomIndex = Math.floor(Math.random() * sound.length);
+            audio = new Audio(sound[randomIndex]);
+        } else {
+            audio = new Audio(sound);
+        }
+
+        audio.volume = 0.8; // ←ここで音量調整
+        audio.play();
+    };
+    const sounds = {
+    addSmall: [
+        "/sounds/水小.mp3",
+    ],
+    addLarge: [
+        "/sounds/水大.mp3",
+    ],
+    };
+
     // 初回読み込み
     useEffect(() => {
     const savedAmount = localStorage.getItem("water-amount");
@@ -30,7 +55,6 @@ export default function WaterPage() {
         setGoalInput(String(parsedGoal));
         }
     }
-
     setMounted(true);
     }, []);
 
@@ -149,14 +173,24 @@ export default function WaterPage() {
                             -100ml
                         </button>
                         <button
-                            onClick={() => setAmount(Math.min(amount + 100, goal))}
+                            onClick={() => {
+                                if (amount < goal) {
+                                    setAmount(Math.min(amount + 100, goal));
+                                    playSound("addSmall");
+                                }
+                            }}
                             className="rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 transition"
                         >
                             +100ml
                         </button>
 
                         <button
-                            onClick={() => setAmount(Math.min(amount + 500, goal))}
+                            onClick={() => {
+                                if (amount < goal) {
+                                    setAmount(Math.min(amount + 500, goal));
+                                    playSound("addLarge");
+                                }
+                            }}
                             className="rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 transition"
                         >
                             +500ml
