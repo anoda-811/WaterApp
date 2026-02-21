@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function ProblemCount() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const total = Number(searchParams.get("count")) || 10;
 
@@ -76,8 +77,6 @@ export default function ProblemCount() {
 
   // 🔥 結果画面
   if (phase === "result") {
-    const router = useRouter();
-
     return (
       <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center">
         <div className="border-2 border-white p-10 text-center w-80">
