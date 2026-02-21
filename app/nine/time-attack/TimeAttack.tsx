@@ -53,6 +53,7 @@ export default function TimeAttack({ seconds }: { seconds: number }) {
     setScore(0);
     setInput("");
     setTimeLeft(seconds * 1000);
+    setIsNewRecord(false);
     };
 
     // 演出制御
