@@ -35,7 +35,7 @@ export default function WaterPage() {
 
 
     return (
-        <main className="flex h-[100svh] flex-col items-center justify-center bg-blue-50 px-4 overflow-hidden">
+        <main className="flex min-h-[100svh] flex-col items-center justify-center bg-blue-50 px-4 overflow-hidden">
         <div className="flex flex-col items-center gap-6">
 
             {/* 左上ホームボタン */}
