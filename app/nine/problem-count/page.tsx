@@ -121,6 +121,9 @@ export default function ProblemCount({
         </div>
 
         <input
+          type="tel"
+          inputMode="numeric"
+          pattern="[0-9]*"
           autoFocus
           value={input}
           onChange={(e) => setInput(e.target.value)}
