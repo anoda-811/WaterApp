@@ -38,8 +38,7 @@ export default function Home() {
         🏠 九九道場
       </Link>
 
-      
-      <Link href="/battle" className="
+      <Link href="/timer" className="
             px-8 py-3
             bg-black text-white
             rounded-xl
@@ -52,7 +51,7 @@ export default function Home() {
             active:shadow-[0_0_20px_white]
             active:bg-white
         ⚔ck">
-        ⚔ バトル
+        💪EMOM
       </Link>
     </main>
   );

@@ -20,6 +20,7 @@ export default function Battle() {
         audio.play()
     }
 
+    // 自分の攻撃
     const attack = () => {
         if (phase !== "player") return
 
@@ -42,16 +43,28 @@ export default function Battle() {
         }, 1200)
     }
 
-    const enemyAttack = () => {
-        const damage = Math.floor(Math.random() * 8) + 3
+    // 敵の攻撃
+    useEffect(() => {
+    if (phase === "enemy") {
+        const damage = Math.floor(Math.random() * 10) + 25
         const newPlayerHp = Math.max(playerHp - damage, 0)
+
+        setTimeout(() => {
         setPlayerHp(newPlayerHp)
         setMessage(`敵のこうげき！ ${damage} ダメージ！`)
+        setPhase("message")
 
         if (newPlayerHp <= 0) {
-        setMessage("やられてしまった…")
+            setPhase("lose")
+            setMessage("やられてしまった…")
+        } else {
+            setTimeout(() => {
+            setPhase("player")
+            }, 1200)
         }
+        }, 800)
     }
+    }, [phase])
 
     // 画像処理
     useEffect(() => {
@@ -103,28 +116,6 @@ export default function Battle() {
         setTimeout(() => {
         setPhase("player")
         }, 1000)
-    }
-    }, [phase])
-
-    // 敵の攻撃
-    useEffect(() => {
-    if (phase === "enemy") {
-        const damage = Math.floor(Math.random() * 8) + 3
-        const newPlayerHp = Math.max(playerHp - damage, 0)
-
-        setTimeout(() => {
-        setPlayerHp(newPlayerHp)
-        setMessage(`敵のこうげき！ ${damage} ダメージ！`)
-        setPhase("message")
-
-        if (newPlayerHp <= 0) {
-            setPhase("lose")
-        } else {
-            setTimeout(() => {
-            setPhase("player")
-            }, 1200)
-        }
-        }, 800)
     }
     }, [phase])
 
