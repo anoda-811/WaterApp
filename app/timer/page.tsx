@@ -14,6 +14,15 @@ export default function EmomCircle() {
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const prevTimeRef = useRef(timeLeft);
 
+  // サウンド系
+  const beep = useRef<HTMLAudioElement | null>(null);
+  const finish = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    beep.current = new Audio("/sounds/beep.mp3");
+    finish.current = new Audio("/sounds/finish.mp3");
+  }, []);
+
   useEffect(() => {
     if (running && !intervalRef.current) {
       intervalRef.current = setInterval(() => {
@@ -32,9 +41,19 @@ export default function EmomCircle() {
   }, [running]);
 
   useEffect(() => {
-    if (prevTimeRef.current === 1 && timeLeft === DURATION && running) {
+    if (!running) return;
+
+    // 3,2,1 のときだけ1回鳴らす
+    if (timeLeft <= 3 && timeLeft > 0 && prevTimeRef.current !== timeLeft) {
+      new Audio("/sounds/beep.mp3").play();
+    }
+
+    // 1 → 60 に戻った瞬間に「ポーン」＋セット加算
+    if (prevTimeRef.current === 1 && timeLeft === DURATION) {
+      new Audio("/sounds/finish.mp3").play();
       setSetCount((s) => s + 1);
     }
+
     prevTimeRef.current = timeLeft;
   }, [timeLeft, running]);
 
@@ -101,7 +120,10 @@ export default function EmomCircle() {
       {/* START */}
       <div className="flex flex-col items-center">
         <button
-          onClick={() => setRunning(true)}
+          onClick={() => {
+            setRunning(true);
+            new Audio("/sounds/start.mp3").play();
+          }}
           className="
             w-16 h-16 rounded-full bg-green-500 flex items-center justify-center text-white text-xl
             transition-all duration-200
@@ -118,7 +140,10 @@ export default function EmomCircle() {
       {/* STOP */}
       <div className="flex flex-col items-center">
         <button
-          onClick={() => setRunning(false)}
+          onClick={() => {
+            setRunning(false);
+            new Audio("/sounds/stop.mp3").play();
+          }}
           className="
             w-16 h-16 rounded-full bg-red-500 flex items-center justify-center text-white text-xl
             transition-all duration-200
@@ -157,7 +182,10 @@ export default function EmomCircle() {
         {/* − */}
         <div className="flex flex-col items-center">
           <button
-            onClick={() => setRepCount((c) => Math.max(0, c - 1))}
+            onClick={() => {
+              setRepCount((c) => Math.max(0, c - 1))
+              new Audio("/sounds/up.mp3").play();
+            }}
             className="
               w-16 h-16 rounded-full bg-gray-600 flex items-center justify-center text-white text-xl
               transition-all duration-200
@@ -174,7 +202,10 @@ export default function EmomCircle() {
         {/* ＋ */}
         <div className="flex flex-col items-center">
           <button
-            onClick={() => setRepCount((c) => c + 1)}
+            onClick={() => {
+              setRepCount((c) => c + 1)
+              new Audio("/sounds/up.mp3").play();
+            }}
             className="
               w-16 h-16 rounded-full bg-blue-500 flex items-center justify-center text-white text-2xl
               transition-all duration-200
