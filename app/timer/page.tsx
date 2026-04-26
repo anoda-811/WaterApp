@@ -10,6 +10,8 @@ export default function EmomCircle() {
   const [setCount, setSetCount] = useState(1);
   const [repCount, setRepCount] = useState(0);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [perSet, setPerSet] = useState(5); // 1分あたりの回数
+  const [editing, setEditing] = useState(false);
 
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const prevTimeRef = useRef(timeLeft);
@@ -66,7 +68,18 @@ export default function EmomCircle() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-6 bg-black text-white">
 
-      <h1 className="text-xl">EMOM</h1>
+    <h1
+      className={`
+        text-5xl tracking-widest font-bold text-white
+        transition-all duration-300
+        ${running ? "drop-shadow-[0_0_12px_#3b82f6] scale-105" : ""}
+      `}
+    >
+      EMOM
+    </h1>
+      <p className="text-xs text-gray-400 tracking-widest">
+        EVERY MINUTE ON THE MINUTE
+      </p>
 
       {/* 円タイマー */}
       <svg width="200" height="200">
@@ -82,12 +95,23 @@ export default function EmomCircle() {
           cx="100"
           cy="100"
           r={radius}
-          stroke="#00f"
+
           strokeWidth="10"
           fill="none"
           strokeDasharray={circumference}
           strokeDashoffset={offset}
           transform="rotate(-90 100 100)"
+          stroke={timeLeft <= 3 ? "#ef4444" : "#3b82f6"}
+          className={`
+            transition-all duration-300
+            ${
+              running
+                ? timeLeft <= 3
+                  ? "drop-shadow-[0_0_10px_#ef4444]"
+                  : "drop-shadow-[0_0_10px_#3b82f6]"
+                : ""
+            }
+          `}
         />
         <text
           x="50%"
@@ -112,6 +136,35 @@ export default function EmomCircle() {
           <div className="text-xs text-gray-400">REPS</div>
           <div className="text-3xl font-bold text-green-400">{repCount}</div>
         </div>
+      </div>
+
+      <div className="mt-4 text-center">
+
+        <div className="text-xs text-gray-400">
+          TARGET REPS
+        </div>
+
+        {!editing ? (
+          <div
+            className="text-2xl font-bold text-blue-400 cursor-pointer"
+            onClick={() => setEditing(true)}
+          >
+            {perSet} 回
+          </div>
+        ) : (
+          <input
+            type="number"
+            value={perSet}
+            autoFocus
+            onChange={(e) => setPerSet(Number(e.target.value))}
+            onBlur={() => setEditing(false)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") setEditing(false);
+            }}
+            className="w-20 text-center bg-gray-800 text-blue-400 text-2xl font-bold rounded"
+          />
+        )}
+
       </div>
 
       {/* 操作 */}
@@ -203,7 +256,7 @@ export default function EmomCircle() {
         <div className="flex flex-col items-center">
           <button
             onClick={() => {
-              setRepCount((c) => c + 1)
+              setRepCount((c) => c + perSet)
               new Audio("/sounds/up.mp3").play();
             }}
             className="
