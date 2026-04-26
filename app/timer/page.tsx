@@ -100,6 +100,7 @@ export default function EmomCircle() {
           fill="none"
           strokeDasharray={circumference}
           strokeDashoffset={offset}
+          strokeLinecap="round"
           transform="rotate(-90 100 100)"
           stroke={timeLeft <= 3 ? "#ef4444" : "#3b82f6"}
           className={`
@@ -120,6 +121,16 @@ export default function EmomCircle() {
           textAnchor="middle"
           fontSize="32"
           fill="white"
+        className={`
+          transition-all duration-300
+          ${
+            running
+              ? timeLeft <= 3
+                ? "fill-red-400 drop-shadow-[0_0_10px_#ef4444]"
+                : "drop-shadow-[0_0_6px_#fff]"
+              : ""
+          }
+        `}
         >
           {timeLeft}
         </text>
